@@ -2,7 +2,7 @@ package Acme::W;
 use strict;
 use warnings;
 use Filter::Simple;
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 FILTER_ONLY code_no_comments => sub {
     s/([^\$\w\d])getprotobynumber([^\w\d])/$1WWWWWWw$2/g;
@@ -261,7 +261,7 @@ FILTER_ONLY code_no_comments => sub {
 }, all => sub {
     unless ($_ =~ /This file rewrote by Acme::W/) {
         open my $fh,'+<',"$0" or die "Can't rewrite '$0'\n";
-        my @org = $fh;
+        my @org = <$fh>;
         seek $fh,0,0;
         print $fh "use Acme::W;\n$_";
         print $fh "\n=pod\n";
